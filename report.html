@@ -11927,9 +11927,9 @@ Standard deviation of prices: $165,171.13
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <ul>
-<li>RM goes up, the price(MEDV) should goes up</li>
-<li>LSTAT goes up, the price(MEDV) should goes down</li>
-<li>PTRATIO goes up, the price(MEDV) should goes up</li>
+<li>RM goes up, the price(MEDV) should goes up. More room of the house tends to have higher price.(Advantage)</li>
+<li>LSTAT goes up, the price(MEDV) should goes down. Higher poverty level would lower down the house price.(Disadvantage)</li>
+<li>PTRATIO goes up, the price(MEDV) should goes up. Higher Teacher/Student ratio would lower down teh house price.(Disadvantage)</li>
 </ul>
 
 </div>
@@ -12139,8 +12139,11 @@ Standard deviation of prices: $165,171.13
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>If you go test/train with the same data set, it's not really effective because you don't have new information to test the existed model.(You are testing the model by itself)</p>
-<p>Splitting the dataset let us utilize the dataset effectively to test and train with different subset.</p>
+<ul>
+<li>If you go test/train with the same data set, it's not really effective because you don't have new information to test the existed model.(You are testing the model by itself)</li>
+<li>Gives estimate of performance on an independent dataset</li>
+<li>Serves as check on overfitting</li>
+</ul>
 
 </div>
 </div>
@@ -13214,7 +13217,7 @@ iIjoGBkARUREREREx/gHiSu+d7X0XRUAAAAASUVORK5CYII=
 <p><strong>Answer: </strong></p>
 <p>For curve max_depth = 3
 As more training points are added, the score of training curve is decreasing slowly; The score of testing curve is increasing along with training score.
-Because the training model is convering as more training points are added, it's benefecial for adding more training points(number of observation).</p>
+Having more training points would not benefit the model. The 300 data entries are good enough for converging the testing curve and training curve. If we get more training points, it's redundent and time consuming speaking of the performance.</p>
 
 </div>
 </div>
@@ -13738,7 +13741,7 @@ jAkYlvSMMcYEDEt6xhhjAsb/A+CfRwxdQ3c3AAAAAElFTkSuQmCC
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <p>The grid search technique will automate the process of how we tuning parameters of the model for the best perfomance result.</p>
-<p>It will go through every single combination for the features and find the best one. If the parameters are huge, the grid search is very effective to tune them.</p>
+<p>It will go through every single combination for the hyper-parameters and find the best one. If the parameters are huge, the grid search is very effective to tune them.(But it's computational expensive)</p>
 
 </div>
 </div>
@@ -13760,8 +13763,8 @@ jAkYlvSMMcYEDEt6xhhjAsb/A+CfRwxdQ3c3AAAAAElFTkSuQmCC
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The k fold cross validation will split the data set into k small bins. And we are going to pick every single bin as a testing test and rest of them as training set for k times. In this case, we could utilize all the data and get the mosy accurate test result.</p>
-<p>The model will be  tuned only to a specific subset of data without using cross validation. For exmaple, it will not shuffle your data entries, so the pattern in the data would not be eliminated. That would cause some problem with bias.</p>
+<p>The k fold cross validation will split the data set into k small bins. And we are going to pick every single bin as a testing test and rest of them as training set for k times. The final score will be the average score from k results. All observations are used for both training and validation, and each observation is used for validation exactly once.  In this case, we could utilize all the data and get the mosy accurate test result.</p>
+<p>The model will be  tuned only to a specific subset of data without using cross validation. For exmaple, it will not shuffle your data entries, so the pattern in the data would not be eliminated. That would cause some problem with variance.(Overfitting)</p>
 
 </div>
 </div>
@@ -13798,7 +13801,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -13810,6 +13813,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <span class="sd">        decision tree regressor trained on the input data [X, y]. &quot;&quot;&quot;</span>
 
     <span class="c1"># Create cross-validation sets from the training data</span>
+    <span class="c1"># I&#39;m using sklearn 0.18.1, so I modified the parameters for Shufflesplit.    </span>
     <span class="n">cv_sets</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.20</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># TODO: Create a decision tree regressor object</span>
@@ -13859,7 +13863,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Fit the training data to the model using grid search</span>
@@ -13943,7 +13947,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Produce a matrix for client data</span>
@@ -13954,6 +13958,13 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <span class="c1"># Show predictions</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">price</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">client_data</span><span class="p">)):</span>
     <span class="k">print</span> <span class="s2">&quot;Predicted selling price for Client {}&#39;s home: ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">price</span><span class="p">)</span>
+    
+<span class="c1"># A histogram of all of the housing prices in this dataset and see where each of these predictions fall</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">price</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">client_data</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">price</span><span class="o">-</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;Client &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13971,6 +13982,108 @@ Predicted selling price for Client 2&#39;s home: $219,961.54
 Predicted selling price for Client 3&#39;s home: $955,500.00
 </pre>
 </div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAAD8CAYAAABn919SAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAAE/tJREFUeJzt3X+QXeV93/H31xKIH9EiFAtJBdsyroYpRBMZL65tMrZB
+tkuCjew/zFhM8KaloxmH2JFbOxXuP8SDRzjt1IpxXCILWsUBg3BMEUoMJQr+ETsDWRXCSgEqKkuO
+NfplJRjoaCoJvv3jHsRdsau9++Pes3rO+zWzc899zrm63+fROZ89+9x7z43MRJJ06ntD3QVIkqaG
+gS5JhTDQJakQBrokFcJAl6RCGOiSVAgDXZIKYaBLUiEMdEkqxMxePtkb3/jGXLRoUS+fsquG9vzi
++PKS88+psZLea3LfVabpvE9v3br155k5b6ztehroixYtYnBwsJdP2VWLVv/58eXBW6+usZLea3Lf
+VabpvE9HxO5OtnPKRZIKYaBLUiEMdEkqhIEuSYUw0CWpEAa6JBXCQJekQhjoklQIA12SCtHTT4qq
+TEs2LBlzm6GBoR5UIjWbZ+iSVAgDXZIKYaBLUiGcQ9e00sl8PDgnL42k8WfoDz/8MHfccQe7du0a
+1n7nnXfWU9A08MUvfrHuEqRxyUw2btzIfffdR2ayZcsWPvOZz/D1r3+dV155pe7yeqbRgf6FL3yB
+L33pSwwNDbFs2TJuu+224+u+9rWv1VhZvdavX193CdK43HjjjWzcuJFvfvObXH/99dx+++1cdtll
+/OAHP+Czn/1s3eX1TKOnXB588EGeeOIJZs6cyc0338x1113Hzp07+cpXvkJm1l1eV/X19Y3Ynpkc
+Pny4x9VIk/PDH/6QoaEhjh49yoIFC9i7dy+nn346K1as4NJLL627vJ7p6Aw9InZFxFBEPBkRg1Xb
+3Ih4JCJ2VLfndrfUqXfs2DFmzmz9TpszZw4PPvggL7zwAh//+Mc5cuRIzdV115w5c9ixYwcvvPDC
+sJ8XX3yRhQsX1l2eNC6vHsennXYal112Gaeffvrx9je8oTkTEePp6RWZuTQz+6v7q4EtmbkY2FLd
+P6W87W1v4/vf//7x+zNmzOCOO+7goosu4umnn66xsu775Cc/ye7dI3+r1XXXXdfjaqTJWbBgAS+9
+9BIADz300PH2ffv2HQ/3JpjMlMty4P3V8gbge8B/mGQ9PXXfffeN2H7LLbfwqU99qsfV9NYtt9wy
+6rovf/nLPaxEmrzvfve7I7bPnj2bzZs397ia+nR6hp7AX0bE1ohYWbXNz8y91fI+YP5ID4yIlREx
+GBGDBw8enGS5U+vMM8/kzDPPHHHd+eef3+NqJE21s88+m/POO6/uMnqm0zP0X8vMPRFxHvBIRDzT
+vjIzMyJGfBUxM9cB6wD6+/vLfqVRkmrU0Rl6Zu6pbg8A9wPvBPZHxEKA6vZAt4qUJI1tzECPiLMj
+Yvary8CHgG3AJmCg2mwAeKBbRXbb9ddf31FbiZrcd5Wn6ftzJ1Mu84H7I+LV7e/OzIci4m+BjRFx
+A7AbuLZ7ZXbX9u3bh91/+eWX2bp1a03V9FaT+67yNH1/HvMMPTN3ZuavVj+XZOaXqvZDmbksMxdn
+5gcy8x+7X+7UWrNmDbNnz+app56ir6+Pvr4+Zs+ezXnnncfy5cvrLq+rmtx3lcf9uaU577gfwU03
+3cSLL77I5z//+WEfrDl06BBr1qypu7yuanLfVR7355ZGf/T/VWvWrGHPnj3s3r2bY8eOHW9/73vf
+W2NVvdHkvqs8Td+fDXRg9erV3HPPPVx88cXMmDEDgIhoxE7Q5L6rPE3fnw104P777+fZZ59l1qxZ
+dZfSc03uu8rT9P250XPor7rwwgs5evRo3WXUosl9V3mavj97hg6cddZZLF26lGXLlg37zf7Vr361
+xqp6o8l9V3mavj8b6MA111zDNddcU3cZtehV3zv9ajlpMpp8LIOBDsDAwACHDx/mpz/9KRdddFHd
+5fRUk/uu8jR9f3YOndY3Fy1dupSrrroKgCeffLIxv+Wb3HeVp+n7s4EO3HzzzTz++OPMmTMHgKVL
+l7Jz586aq+qNJvdd5Wn6/uyUC62vrTrnnHOGtTXla6tG6vtzv3iugznvW7tXlDRBTT6WwTN0AC65
+5BLuvvtuXn75ZXbs2MGnP/1p3vOe99RdVk+M1Pez/vlZdZclTUiTj2Uw0AG47bbb2L59O7NmzWLF
+ihX09fWxdu3ausvqiZH6vvA6vyRap6YmH8sAkdm7LxHq7+/PwcHBnj1fty1a/efHl3fdenWNlUyt
+Tt5i+OLTr025zP4Xvf9+8KGBoZ4/p8o2nY/niNiamf1jbdfoOfRVq1axdu1aPvKRj1Bd732YTZs2
+1VBVb5ys77v/YTdvWfWWmiqTxq/Jx3K7Rgf6q99k8rnPfa7mSnrvZH3f9tC2XpcjTUqTj+V2jQ70
+d7zjHQC8733vq7mS3jtZ38/edXavy5EmpcnHcrtGB/qSJUtG/PMsM4kInnrqqRqq6o2T9X3H8ztY
+fMviGqqSJqbJx3K7Rgf65s2b6y6hNifr+4e+/aEeViJNXpOP5XaNDvSjR4+yf/9+Lr/88mHtP/rR
+j1iwYEFNVfXGyfqer/TunU/SVGjysdyu0e9DX7VqFX19fa9r7+vrY9WqVTVU1Dsn6/u+u/bVUJE0
+cU0+lts1OtD379/PkiWvf8/1kiVL2LVrV+8L6qGT9f3IoSM1VCRNXJOP5XaNDvTnn39+1HWHDx/u
+YSW9d7K+5xGnXHRqafKx3K7Rgd7f3883vvGN17WvX7/++NugSnWyvp+x6IwaKpImrsnHcrtGvyi6
+du1aPvaxj3HXXXcd/08fHBzkyJEj3H///TVX110n67vXctGppsnHcrtGB/r8+fP58Y9/zKOPPsq2
+ba1PR1599dVceeWVNVfWfSfru18Xp1NNk4/ldo0O9FddccUVXHHFFXWXUYsm913lafr+3Og5dEkq
+iYEuSYUw0CWpEB0HekTMiIgnImJzdX9uRDwSETuq23O7V6YkaSzjOUP/XeDptvurgS2ZuRjYUt2X
+JNWko0CPiAuAq4H1bc3LgQ3V8gbgo1NbmiRpPDo9Q18L/B7wSlvb/MzcWy3vA+ZPZWGSpPEZM9Aj
+4sPAgczcOto22fqm6REvABIRKyNiMCIGDx48OPFKJUkn1ckZ+uXANRGxC7gHuDIi/hTYHxELAarb
+AyM9ODPXZWZ/ZvbPmzdvisqWJJ1ozEDPzJsy84LMXAR8AvirzPxNYBMwUG02ADzQtSolSWOazPvQ
+bwU+GBE7gA9U9yVJNRnXtVwy83vA96rlQ8CyqS9JkjQRflJUkgphoEtSIQx0SSqEgS5JhTDQJakQ
+BrokFcJAl6RCGOiSVAgDXZIKYaBLUiHG9dF/abpYsmFJR9sNDQx1uRJp+vAMXZIKYaBLUiEMdEkq
+hIEuSYUw0CWpEAa6JBXCQJekQhjoklQIA12SCmGgS1IhDHRJKoSBLkmFMNAlqRAGuiQVwkCXpEJ4
+PfRpzGt+SxoPz9AlqRAGuiQVwkCXpEKMGegRcUZEPB4RfxcR2yPi96v2uRHxSETsqG7P7X65kqTR
+dHKG/v+AKzPzV4GlwFUR8S5gNbAlMxcDW6r7kqSajBno2fJSdfe06ieB5cCGqn0D8NGuVChJ6khH
+c+gRMSMingQOAI9k5mPA/MzcW22yD5jfpRolSR3oKNAz8+XMXApcALwzIn7lhPVJ66z9dSJiZUQM
+RsTgwYMHJ12wJGlk43qXS2Y+DzwKXAXsj4iFANXtgVEesy4z+zOzf968eZOtV5I0ik7e5TIvIuZU
+y2cCHwSeATYBA9VmA8AD3SpSkjS2Tj76vxDYEBEzaP0C2JiZmyPib4CNEXEDsBu4tot1SpLGMGag
+Z+ZTwNtHaD8ELOtGUZKk8fOTopJUCANdkgrh5XMbpNPL8Uo6NXmGLkmFMNAlqRAGuiQVwkCXpEIY
+6JJUCANdkgphoEtSIQx0SSqEgS5JhTDQJakQBrokFcJAl6RCGOiSVAgDXZIKYaBLUiG8HnoNvC65
+pG7wDF2SCmGgS1IhDHRJKoSBLkmFMNAlqRAGuiQVwkCXpEIY6JJUCANdkgphoEtSIQx0SSrEmNdy
+iYg3AX8CzAcSWJeZfxgRc4F7gUXALuDazPyn7pWq0XhtGEnQ2Rn6MeDfZ+bFwLuAGyPiYmA1sCUz
+FwNbqvuSpJqMGeiZuTcz/1e1/CLwNHA+sBzYUG22Afhot4qUJI1tXHPoEbEIeDvwGDA/M/dWq/bR
+mpKRJNWk40CPiF8C/gxYlZkvtK/LzKQ1vz7S41ZGxGBEDB48eHBSxUqSRtdRoEfEabTC/K7M/E7V
+vD8iFlbrFwIHRnpsZq7LzP7M7J83b95U1CxJGsGYgR4RAdwBPJ2Z/6Vt1SZgoFoeAB6Y+vIkSZ3q
+5CvoLgeuB4Yi4smq7QvArcDGiLgB2A1c250SJUmdGDPQM/OvgRhl9bKpLUeSNFF+UlSSCmGgS1Ih
+DHRJKoSBLkmFMNAlqRAGuiQVwkCXpEIY6JJUCANdkgphoEtSITq5loukyni+7m9oYKiLlUiv5xm6
+JBXCQJekQhjoklQIA12SCmGgS1IhDHRJKoSBLkmFMNAlqRAGuiQVwkCXpEIY6JJUCK/lMoXGc50P
+SZpqnqFLUiEMdEkqhIEuSYVwDl3C1z9UBs/QJakQBrokFcJAl6RCjDmHHhF3Ah8GDmTmr1Rtc4F7
+gUXALuDazPyn7pVZr9HnV2/tYBs11VTvE35HqcbSyRn6fweuOqFtNbAlMxcDW6r7kqQajRnomfkD
+4B9PaF4ObKiWNwAfneK6JEnjNNE59PmZubda3gfMn6J6JEkTNOn3oWdmRkSOtj4iVgIrAd785jdP
+9ummjHPeOtV0us86195cEz1D3x8RCwGq2wOjbZiZ6zKzPzP7582bN8GnkySNZaKBvgkYqJYHgAem
+phxJ0kSNGegR8S3gb4CLIuJnEXEDrffrfTAidgAfoP39e5KkWow5h56ZK0ZZtWyKa5E0BZxrby4/
+KSpJhTDQJakQBrokFcLroatoft5ATeIZuiQVwkCXpEIUN+Xin9hSZ3x7Y3k8Q5ekQhjoklQIA12S
+CmGgS1IhDHRJKoSBLkmFMNAlqRAGuiQVwkCXpEIY6JJUCANdkgpxylzLxWu0SPUYz7FX13VfvC5N
+i2foklQIA12SCmGgS1IhTpk5dEnNM91fO5tury94hi5JhTDQJakQBrokFcI5dElTZrq/H/zk9d3a
+4XbTl2foklQIA12SCmGgS1IhJjWHHhFXAX8IzADWZ+atYzxEkk7ZOerpbsJn6BExA/gj4NeBi4EV
+EXHxVBUmSRqfyUy5vBN4LjN3ZuYR4B5g+dSUJUkar8kE+vnAP7Td/1nVJkmqQdffhx4RK4GV1d2X
+IuLZbj9nl7wR+Pnwpg/XUkjNqnFoZN/bjbA/NFJB4zCpfXrMcYjfisn8+2/pZKPJBPoe4E1t9y+o
+2obJzHXAukk8z7QQEYOZ2V93HXVzHFochxbHoWW6jMNkplz+FlgcEW+NiNOBTwCbpqYsSdJ4TfgM
+PTOPRcTvAA/TetvinZm5fcoqkySNy6Tm0DPzL4C/mKJaprtTftpoijgOLY5Di+PQMi3GITKz7hok
+SVPAj/5LUiGKDvSIeFNEPBoRfx8R2yPid6v2uRHxSETsqG7PbXvMTRHxXEQ8GxH/qq39HRExVK37
+akRE1T4rIu6t2h+LiEVtjxmonmNHRAz0rucji4gZEfFERGyu7jd1HOZExLcj4pmIeDoi3t3EsYiI
+z1bHxbaI+FZEnNGEcYiIOyPiQERsa2urtd/RenPJY9Vj7o3WG03GLzOL/QEWApdWy7OB/03rMgV/
+AKyu2lcDX66WLwb+DpgFvBX4P8CMat3jwLuAAL4L/HrV/tvA7dXyJ4B7q+W5wM7q9txq+dyax+Pf
+AXcDm6v7TR2HDcC/rZZPB+Y0bSxofQjwJ8CZ1f2NwG81YRyA9wKXAtva2mrtdzX+n6iWbwc+NaG+
+1Xlg1bATPwB8EHgWWFi1LQSerZZvAm5q2/5h4N3VNs+0ta8A/rh9m2p5Jq0PF0T7NtW6PwZW1Nj3
+C4AtwJW8FuhNHIdzaAVZnNDeqLHgtU96z61q3Ax8qCnjACxieKDX1u9q3c+BmVX7u4GHJ9Kvoqdc
+2lV/9rwdeAyYn5l7q1X7gPnV8miXMzi/Wj6xfdhjMvMY8Avgl0/yb9VlLfB7wCttbU0ch7cCB4H/
+Vk0/rY+Is2nYWGTmHuA/Az8F9gK/yMz/ScPGoU2d/f5l4Plq2xP/rXFpRKBHxC8BfwasyswX2tdl
+61di0W/1iYgPAwcyc+to2zRhHCozaf25/V8z8+3A/6X1J/ZxTRiLao54Oa1fcP8MODsifrN9myaM
+w0hO5X4XH+gRcRqtML8rM79TNe+PiIXV+oXAgap9tMsZ7KmWT2wf9piImEnrT/pDJ/m36nA5cE1E
+7KJ1VcwrI+JPad44QOvs52eZ+Vh1/9u0Ar5pY/EB4CeZeTAzjwLfAd5D88bhVXX2+xAwp9r2xH9r
+fOqYv+vhPFkAfwKsPaH9PzH8BZA/qJYvYfgLIDsZ/QWQ36jab2T4CyAbq+W5tOZqz61+fgLMnQZj
+8n5em0Nv5DgAPwQuqpZvrsahUWMB/EtgO3BWVf8G4NNNGQdeP4dea7+B+xj+ouhvT6hfdR5YPfhP
++zVafzo9BTxZ/fwGrTmrLcAO4C/bdybgP9J6JftZqletq/Z+YFu17mu89qGsM6r/jOeq/+AL2x7z
+b6r254B/Xfd4VDW9n9cCvZHjACwFBqv94n9UB1fjxgL4feCZqg/fpBVaxY8D8C1arxscpfUX2w11
+9xu4sNr2ueqxsybSNz8pKkmFKH4OXZKawkCXpEIY6JJUCANdkgphoEtSIQx0SSqEgS5JhTDQJakQ
+/x8tWQPfIWnyRwAAAABJRU5ErkJggg==
+"
+>
+</div>
+
 </div>
 
 </div>
